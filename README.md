@@ -18,5 +18,28 @@ when creating a django model we need some info:
   --> things that are common to all models of the application (but not provided by django out-of-the-box)
   --> we created a helpers folder and add a model
 
-Abstract base classes are useful when you want to put some common information into a number of other models. You write your base class and put abstract=True in the Meta class. This model will then not be used to create any database table. Instead, when it is used as a base class for other models, its fields will be added to those of the child class.
-https://docs.djangoproject.com/en/3.2/topics/db/models/
+#### Customize model for authentication
+
+authentication/model.py:
+
+- Because we are adding a new User model for authentication while dango already has something similar,
+  to avoid the clash add AUTH_USER_MODEL="authentication.User" to settings.py
+
+- Note: Abstract base classes are useful when you want to put some common information into a number of other models. You write your base class and put abstract=True in the Meta class. This model will then not be used to create any database table. Instead, when it is used as a base class for other models, its fields will be added to those of the child class.
+  https://docs.djangoproject.com/en/3.2/topics/db/models/
+
+- We want to inherint from base django classes but overriding some methods
+  -- Our class User inherits from AbstractUser but we want to override some variables and how objects are created.
+  --- UserManager() --> custom manager (class) that specifies how objects are created or retrieved (e.g. soft delete implementation).
+  --- In our case , we want to alter the way thongs are created in a way that whenever we create a user, they must specify their email for login/username.
+  --- Replaced UserManager with custom MyUserManager, in class User
+  --- Created class MyUserManager, inheriting from UserManager
+  -- Our class MyuserManager inherits from UserManager but we override create_user and create_superuser
+- User, added email_verified copied from is_active variable, with the default to false
+- also added a token method to generate a token for the user, we add @property to treat the token as a property so we can just do user.token without having to instatntiate a class.
+
+Notes: error -> ValueError: Dependency on app with no migrations: authentication; because we need to propagate changes you make to our models into our database schema.
+--> python manage.py makemigrations
+-- Then in authentication/migrations/0001_initial.py, we can see that django has created the model User.
+--> python manage.py migrate
+#### end Customize model for authentication ####
