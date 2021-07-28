@@ -1,5 +1,7 @@
 #drf-todolist-app
 
+#### Set up
+
 virtualenv venv
 source venv/bin/activate (on bash, not working with zsh)
 pip install django djangorestframework
@@ -17,6 +19,7 @@ when creating a django model we need some info:
 - how they are retrieved
   --> things that are common to all models of the application (but not provided by django out-of-the-box)
   --> we created a helpers folder and add a model
+  ### end set up
 
 #### Customize model for authentication
 
@@ -43,3 +46,17 @@ Notes: error -> ValueError: Dependency on app with no migrations: authentication
 -- Then in authentication/migrations/0001_initial.py, we can see that django has created the model User.
 --> python manage.py migrate
 #### end Customize model for authentication ####
+
+#### Unit Testing
+
+installed live server extension
+pip install coverage
+added .coveragerc to to define what we want and don't want to cover
+coverage run manage.py test && coverage report && coverage htm
+--> it created .coverage and htmlcov
+we see that authentication/models.py is not at 100%
+in htmlcov/ find index.html and click Go Live on vscode bottom right button
+--> once opened, click on authentication/models.py; where it's red it means it needs tests
+deleted test.py in authentication/
+created tests/ folder, \_init_py and test*models.py
+Important note: when creating a test, always start with 'test*'.

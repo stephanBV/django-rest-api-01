@@ -4,6 +4,8 @@ from django.contrib.auth.models import (AbstractBaseUser, PermissionsMixin, User
 from django.contrib.auth.validators import UnicodeUsernameValidator
 from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
+from django.contrib.auth.hashers import make_password
+from django.apps import apps
 
 #add new properties access_token, is_email_verified
 #use email and password instead of username/password
@@ -19,7 +21,7 @@ class MyUserManager(UserManager):
         email = self.normalize_email(email)
 
         if not email:
-            raise ValueError('The given username must be set')
+            raise ValueError('The given email must be set')
         email = self.normalize_email(email)
         # Lookup the real model class from the global app registry so this
         # manager method can be used in migrations. This is fine because
@@ -31,7 +33,7 @@ class MyUserManager(UserManager):
         user.save(using=self._db)
         return user
 
-    def create_user(self, username, email=None, password=None, **extra_fields):
+    def create_user(self, username, email, password=None, **extra_fields):
         extra_fields.setdefault('is_staff', False)
         extra_fields.setdefault('is_superuser', False)
         return self._create_user(username, email, password, **extra_fields)
@@ -90,7 +92,7 @@ class User(AbstractBaseUser, PermissionsMixin, TrackingModel):
         ),
     )
 
-    objects = MyUserManager()
+    objects = MyUserManager() #says how objects are created or retrived
 
     EMAIL_FIELD = 'email'
     USERNAME_FIELD = 'email'
