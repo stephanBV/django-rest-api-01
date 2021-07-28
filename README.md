@@ -39,7 +39,7 @@ authentication/model.py:
   --- Created class MyUserManager, inheriting from UserManager
   -- Our class MyuserManager inherits from UserManager but we override create_user and create_superuser
 - User, added email_verified copied from is_active variable, with the default to false
-- also added a token method to generate a token for the user, we add @property to treat the token as a property so we can just do user.token without having to instatntiate a class.
+- also added a token method to generate a token for the user, we add @property to treat the token as a property so we can just do user.token without having to instantiate a class.
 
 Notes: error -> ValueError: Dependency on app with no migrations: authentication; because we need to propagate changes you make to our models into our database schema.
 --> python manage.py makemigrations
@@ -60,3 +60,18 @@ in htmlcov/ find index.html and click Go Live on vscode bottom right button
 deleted test.py in authentication/
 created tests/ folder, \_init_py and test*models.py
 Important note: when creating a test, always start with 'test*'.
+
+#### end unit testing
+
+#### User registration
+
+RegisterSerializer -> RegisterAPIView -> path in urls
+
+### end user registration
+
+### Authenticate user
+
+pip install pyjwt
+LoginSerializer -> LoginAPIView -> token method in class User in models -> path in urls
+
+### end authenticate user
