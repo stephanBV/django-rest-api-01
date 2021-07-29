@@ -119,3 +119,16 @@ we can use one view to both create and list the items:
 - replace CreateTodoAPIView and TodoListAPIView by TodosAPIView inheriting from ListCreateAPIView
 - change url
 ### end ListCreateAPIView to create AND list items ###
+### Retrieve Update and Destroy APIViews
+Django has a built-in class that can update, retrieve and delete items: RetrieveUpdateDestroyAPIView
+- add TodoDetailAPIView inheriting from RetrieveUpdateDestroyAPIView
+- add path("<int:id>", TodoDetailAPIView.as_view(), name="todo") to urls
+### end Retrieve Update and Destroy APIViews ###
+#### Filtering, Searching, and Ordering
+- pip install django_filter
+- add django_filters to INSTALLED_APPS
+- in views.py:
+- django_filters provide different ways to filter the data 
+-- Filter: we can now filter data by id, title or is_complete, e.g. ../api/todos/?id=3
+- Search: also, from rest_framework import filters -> filters.SearchFilter -> can now look for specific word for e.g.
+- Order: filters.OrderingFilter --> /?ordering=id
