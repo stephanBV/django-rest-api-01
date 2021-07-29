@@ -96,5 +96,6 @@ LoginSerializer -> LoginAPIView -> token method in class User in models -> path 
   'authentication.jwt.JWTAuthentication',
   ]
   }
+- The above will apply JWT authentication on all views, but some views like register or login don't require a token so add authentication_classes = [] for views that don't require jwt auth
 
 ### end JWT API Authentication

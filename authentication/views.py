@@ -16,6 +16,7 @@ class AuthUserAPIView(GenericAPIView):
  
 
 class RegisterAPIView(GenericAPIView):
+    authentication_classes = []
     serializer_class = RegisterSerializer
     
     def post(self, request):
@@ -28,14 +29,14 @@ class RegisterAPIView(GenericAPIView):
         return response.Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class LoginAPIView(GenericAPIView):
-
+    authentication_classes = []
     serializer_class = LoginSerializer
 
     def post(self, request):
         email = request.data.get('email', None)
         password = request.data.get('password', None)
 
-        user = authenticate(username=email, password=password)
+        user = authenticate(email=email,  password=password)
 
         if user:
             serializer = self.serializer_class(user)
