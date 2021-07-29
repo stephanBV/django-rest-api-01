@@ -99,3 +99,17 @@ LoginSerializer -> LoginAPIView -> token method in class User in models -> path 
 - The above will apply JWT authentication on all views, but some views like register or login don't require a token so add authentication_classes = [] for views that don't require jwt auth
 
 ### end JWT API Authentication
+#### List and Create APIViews
+COMMON for CREATE and LIST:
+- todos/ models -> Todo (inh from helpers (TrackingModel))
+- todos/ serializers -> TodoSerializer (inh from ModelSerializer)
+- python manage.py makemigrations
+- python manage.py migrates
+Notes: on_delete=models.CASCADE -> delete everything from the owner
+CREATE:
+- todos/ views -> CreateTodoAPIView (inh from CreateAPIView, overr perform_create)
+- todos/ urls -> 'create'
+
+LIST:
+- todos/ views -> TodoListAPIView (inh from ListAPIView, overr get_queryset)
+- todos/ urls -> 'list'
