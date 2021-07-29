@@ -132,3 +132,20 @@ Django has a built-in class that can update, retrieve and delete items: Retrieve
 -- Filter: we can now filter data by id, title or is_complete, e.g. ../api/todos/?id=3
 - Search: also, from rest_framework import filters -> filters.SearchFilter -> can now look for specific word for e.g.
 - Order: filters.OrderingFilter --> /?ordering=id
+### end Filtering, Searching, and Ordering ###
+### API Pagination
+To limit the nmber fo results sent back to us we can use django pagination methods
+- LimitOffsetPagination:
+-- settings -> REST_FRAMEWORK -> 'DEFAULT_PAGINATION_CLASS': "rest_framework.pagination.LimitOffsetPagination"
+-- e.g. ../api/todos/?limit=1
+-- e.g. ..api/todos/?limit=4&offset=20 -> ignore the first 20 items and retrieve the next 4
+- PageNumberPagination:
+-- settings -> DEFAULT_PAGINATION_CLASS': "rest_framework.pagination.PageNumberPagination", 'PAGE_SIZE':5
+-- will return 5 items per page
+-- to avoid having to add the number of items per page in settings, we can create a custom pagination
+- Custom Pagination:
+-- create pagination.py
+-- CustomPageNumberPagination inherit from pagination.PageNumberPagination
+-- views -> TodosAPIView -> pagination_class = CustomPageNumberPagination
+-- now by default api/todos/ will automatically retrieve what is in pagination.py
+### end API Pagination
