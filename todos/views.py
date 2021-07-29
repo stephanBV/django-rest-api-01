@@ -3,11 +3,18 @@ from rest_framework.generics import  ListCreateAPIView, RetrieveUpdateDestroyAPI
 from todos.serializers import TodoSerializer
 from rest_framework.permissions import IsAuthenticated
 from todos.models import Todo
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import filters
 
 # Create your views here.
 class TodosAPIView(ListCreateAPIView):
     serializer_class = TodoSerializer
     permission_classes = (IsAuthenticated,)
+    
+    filter_backends=[DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter] #django_filters provide different ways to filter the data 
+    filterset_fields = ['id', 'title', 'is_complete'] #we can now filter data by id, title or is_complete, e.g. ../api/todos/?id=3
+    search_fields = ['id', 'title', 'desc', 'is_complete'] #i can now look for a specific word for e.g. in id, title, desc or is_complete
+    ordering_fields = ['id', 'title', 'desc', 'is_complete']
 
     def perform_create(self, serializer): #GET
         return serializer.save(owner=self.request.user)
