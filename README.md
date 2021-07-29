@@ -53,7 +53,7 @@ Notes: error -> ValueError: Dependency on app with no migrations: authentication
 installed live server extension
 pip install coverage
 added .coveragerc to to define what we want and don't want to cover
-coverage run manage.py test && coverage report && coverage htm
+coverage run manage.py test && coverage report && coverage html
 --> it created .coverage and htmlcov
 we see that authentication/models.py is not at 100%
 in htmlcov/ find index.html and click Go Live on vscode bottom right button
@@ -148,4 +148,9 @@ To limit the nmber fo results sent back to us we can use django pagination metho
 -- CustomPageNumberPagination inherit from pagination.PageNumberPagination
 -- views -> TodosAPIView -> pagination_class = CustomPageNumberPagination
 -- now by default api/todos/ will automatically retrieve what is in pagination.py
-### end API Pagination
+### end API Pagination ###
+### Testing APIViews.
+- todos/test.py -> TestListCreateTodos inheriting from APITestCase
+-- when we inherit from APITestCase, we get access to a client (similar to Postman for e.g.)
+-- which means we have now access to all capabilities of a client (get, post, etc..)
+### end Testing APIViews ###
