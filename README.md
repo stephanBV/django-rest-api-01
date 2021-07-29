@@ -23,9 +23,7 @@ when creating a django model we need some info:
 #### end set up
 
 #### Customize model for authentication
-
 authentication/model.py:
-
 - Because we are adding a new User model for authentication while dango already has something similar,
   to avoid the clash add AUTH_USER_MODEL="authentication.User" to settings.py
 
@@ -49,7 +47,6 @@ Notes: error -> ValueError: Dependency on app with no migrations: authentication
 #### end Customize model for authentication ####
 
 #### Unit Testing
-
 installed live server extension
 pip install coverage
 added .coveragerc to to define what we want and don't want to cover
@@ -61,24 +58,18 @@ in htmlcov/ find index.html and click Go Live on vscode bottom right button
 deleted test.py in authentication/
 created tests/ folder, \_init_py and test*models.py
 Important note: when creating a test, always start with 'test*'.
-
 #### end unit testing
 
 #### User registration
-
 RegisterSerializer -> RegisterAPIView -> path in urls
-
 ### end user registration
 
 ### Authenticate user
-
 pip install pyjwt
 LoginSerializer -> LoginAPIView -> token method in class User in models -> path in urls
-
 #### end authenticate user
 
 ### JWT API Authentication
-
 - views.py -> AuthUserAPIView
 - urls -> path user
   -- TypeError: 'BasePermissionMetaclass' object is not iterable
@@ -97,8 +88,8 @@ LoginSerializer -> LoginAPIView -> token method in class User in models -> path 
   ]
   }
 - The above will apply JWT authentication on all views, but some views like register or login don't require a token so add authentication_classes = [] for views that don't require jwt auth
-
 ### end JWT API Authentication
+
 #### List and Create APIViews 
 COMMON for CREATE and LIST:
 - todos/ models -> Todo (inh from helpers (TrackingModel))
@@ -114,16 +105,19 @@ LIST:
 - todos/ views -> TodoListAPIView (inh from ListAPIView, overr get_queryset)
 - todos/ urls -> 'list'
 ### end List and Create APIViews 01 ###
+
 #### ListCreateAPIView to create AND list items
 we can use one view to both create and list the items:
 - replace CreateTodoAPIView and TodoListAPIView by TodosAPIView inheriting from ListCreateAPIView
 - change url
 ### end ListCreateAPIView to create AND list items ###
+
 ### Retrieve Update and Destroy APIViews
 Django has a built-in class that can update, retrieve and delete items: RetrieveUpdateDestroyAPIView
 - add TodoDetailAPIView inheriting from RetrieveUpdateDestroyAPIView
 - add path("<int:id>", TodoDetailAPIView.as_view(), name="todo") to urls
 ### end Retrieve Update and Destroy APIViews ###
+
 #### Filtering, Searching, and Ordering
 - pip install django_filter
 - add django_filters to INSTALLED_APPS
@@ -133,6 +127,7 @@ Django has a built-in class that can update, retrieve and delete items: Retrieve
 - Search: also, from rest_framework import filters -> filters.SearchFilter -> can now look for specific word for e.g.
 - Order: filters.OrderingFilter --> /?ordering=id
 ### end Filtering, Searching, and Ordering ###
+
 ### API Pagination
 To limit the nmber fo results sent back to us we can use django pagination methods
 - LimitOffsetPagination:
@@ -149,8 +144,16 @@ To limit the nmber fo results sent back to us we can use django pagination metho
 -- views -> TodosAPIView -> pagination_class = CustomPageNumberPagination
 -- now by default api/todos/ will automatically retrieve what is in pagination.py
 ### end API Pagination ###
+
 ### Testing APIViews.
 - todos/test.py -> TestListCreateTodos inheriting from APITestCase
 -- when we inherit from APITestCase, we get access to a client (similar to Postman for e.g.)
 -- which means we have now access to all capabilities of a client (get, post, etc..)
 ### end Testing APIViews ###
+
+#### Testing Detail APIViews
+- helper function: create_todo() to reduce the boilerplate
+- helper class:  TodosAPITestCase to handle create_todo() and autehticate() and pass that class to the other test classes
+- TestListCreateTodos and Test_TodoDetailAPIView inherit from TodosAPITestCase
+- added more testign for update, delete, retrieve
+### end Testing Detail APIViews ###
