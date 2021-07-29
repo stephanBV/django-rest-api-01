@@ -16,10 +16,11 @@ class TodosAPIView(ListCreateAPIView):
     def get_queryset(self): #POST
         return Todo.objects.filter(owner=self.request.user)
 
-# class TodoDetailAPIView(RetrieveUpdateDestroyAPIView):
-#     serializer_class=TodoSerializer
-#     permission_classes=(IsAuthenticated,)
-#     lookup_field = "id"
+class TodoDetailAPIView(RetrieveUpdateDestroyAPIView):
+    serializer_class=TodoSerializer
+    permission_classes=(IsAuthenticated,)
+    lookup_field = "id"
 
-#     def get_queryset(self):
-#         return Todo.objects.filter(owner=self.request.user)
+    #do anything only if the owner is person logged in
+    def get_queryset(self):
+        return Todo.objects.filter(owner=self.request.user)
