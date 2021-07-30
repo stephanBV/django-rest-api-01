@@ -211,4 +211,12 @@ pip install drf-yasg
 - Dependencies
 -- we need to tell heroku which dependencies to install, put it in one place
 --- pip freeze > requirements.txt
+- push to github
+-- git add . && git commit -m "setup for deploy" && git push
+- Adding environment variables to Heroku
+-- Heroku --> Settings --> Config Vars
+-- add the secret key
+- Deploy
+-- Deploy --> Manual deploy --> give branch name -> deploy
+psycopg2==2.7.7
 ### end Deploy a Django REST API to Heroku ###
