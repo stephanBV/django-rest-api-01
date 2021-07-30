@@ -153,6 +153,6 @@ cython_debug/
 # misc
 .vscode/
 .DS_Store
-.txt
+notes.md
 
 # End of https://www.toptal.com/developers/gitignore/api/django

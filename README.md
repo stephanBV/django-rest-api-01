@@ -12,7 +12,6 @@ python manage.py startapp authentication
 gitignore.io -> django and paste content to a new .gitgnore file (can also do it directly from github)
 
 when creating a django model we need some info:
-
 - when objects of that model are created
 - when they are updated
 - how they are retrieved
@@ -221,3 +220,9 @@ pip install drf-yasg
 -- Deploy --> Manual deploy --> give branch name -> deploy
 -- deleted psycopg2==2.7.7, pip install psycopg2-binary
 ### end Deploy a Django REST API to Heroku ###
+### BUG in deployment ###
+added runtime.txt with python-3.7.11
+removed psycopg2 from requirements, replaced by psycopg2-binary
+moved django_heroku.settings(locals()) at the bottom of settings.py
+moved whitenoise.middleware.WhiteNoiseMiddleware' in 2nd position of MIDDLEWARE
+DEBUG --> False
