@@ -218,5 +218,5 @@ pip install drf-yasg
 -- add the secret key
 - Deploy
 -- Deploy --> Manual deploy --> give branch name -> deploy
-psycopg2==2.7.7
+-- deleted psycopg2==2.7.7, pip install psycopg2-binary
 ### end Deploy a Django REST API to Heroku ###
