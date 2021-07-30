@@ -1,4 +1,4 @@
-#### Django Rest API for a todo app deployed on heroku and documented with swagger
+#### Django Rest API for a todo app with JWT auth, unittested, deployed on heroku and documented with swagger
 
 #### Set up ###
 Git clone this repo.  
