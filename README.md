@@ -182,6 +182,7 @@ pip install drf-yasg
 ---> you can clic on 'Collections' and make request without having to add everything one by one
 ---> also clic 'APIs' -> Todo API, then bottom-right: recently added, clic Todo API (documentation)
 ### end API Documentation ###
+
 #### Deploy a Django REST API to Heroku
 - create heroku app
 - connect to github repo
