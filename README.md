@@ -7,7 +7,6 @@ cd django-rest-api-todo-app
 virtualenv venv
 source venv/bin/activate (on bash, not working with zsh)
 pip install requirements.txt
-django-admin startproject todolistapi .
 python manage.py runserver
 ```
 You can use Thunder Client on vscode or Postman to make requests. <br />
