@@ -1,0 +1,1 @@
+git remote set-url origin https://stephanBV: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@github.com/stephanBV/django-rest-api-01.git 

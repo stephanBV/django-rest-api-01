@@ -1,7 +1,6 @@
 #drf-todolist-app
 
 #### Set up
-
 virtualenv venv
 source venv/bin/activate (on bash, not working with zsh)
 pip install django djangorestframework
@@ -19,7 +18,6 @@ when creating a django model we need some info:
 - how they are retrieved
   --> things that are common to all models of the application (but not provided by django out-of-the-box)
   --> we created a helpers folder and add a model
-
 #### end set up
 
 #### Customize model for authentication
@@ -160,6 +158,7 @@ To limit the nmber fo results sent back to us we can use django pagination metho
 ### end Testing Detail APIViews ###
 
 ### API Documentation
+#https://swagger.io/
 #https://drf-yasg.readthedocs.io/en/stable/readme.html#installation
 pip install drf-yasg
 'drf_yasg' to INSTALLED_APPS in settings 
@@ -183,3 +182,33 @@ pip install drf-yasg
 ---> you can clic on 'Collections' and make request without having to add everything one by one
 ---> also clic 'APIs' -> Todo API, then bottom-right: recently added, clic Todo API (documentation)
 ### end API Documentation ###
+#### Deploy a Django REST API to Heroku
+- create heroku app
+- connect to github repo
+- add secret key to a .env file
+-- Warning!! no spaces around the '=', otherwise error -> export: `=': not a valid identifier
+- update environment to now about the .env file -> source .env
+- in settings.py, import os and replace SECRET_KEY value by -> os.environ.get("SECRET_KEY")
+- switch DEBUG to False
+- ALLOWED_HOSTS = ["*"]
+- serve the static assets (Documentation) in production (django.contrib.staticfiles is just for development)
+-- install whitenoise -> pip install whitenoise (http://whitenoise.evans.io/en/stable/index.html)
+-- add MIDDLEWARE to settings -> 'whitenoise.middleware.WhiteNoiseMiddleware',
+- django-heroku: (https://devcenter.heroku.com/articles/django-app-configuration)
+-- pip install django-heroku 
+-- import django_heroku
+-- activate -> django_heroku.settings(locals())
+--- enables heroku to know how to work with django DBs, static assets, etc..
+- server:
+-- when runnning locally django sets up a development server, not efficient for production
+-- install gunicorn --> pip install gunicorn 
+- Procfile: 
+-- create Procfile
+-- whenever heroku is going to serve our application, we want it to run 'gunicorn todolistapi.wsgi'
+--- todolistapi being the name of our django project
+--- todolistapi.wsgi is the entry point of our django application
+--- we also want heroku to makemigrations and collect static files everytime we redeploy
+- Dependencies
+-- we need to tell heroku which dependencies to install, put it in one place
+--- pip freeze > requirements.txt
+### end Deploy a Django REST API to Heroku ###
